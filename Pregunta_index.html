@@ -1,0 +1,486 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#190710">
+<title>Una pregunta para ti ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+    background: #190710;
+}
+
+button {
+    border: none;
+    border-radius: 40px;
+    padding: 15px 23px;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+/* PANTALLAS */
+
+.pantalla {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: max(16px, env(safe-area-inset-top))
+             max(16px, env(safe-area-inset-right))
+             max(16px, env(safe-area-inset-bottom))
+             max(16px, env(safe-area-inset-left));
+}
+
+#pantalla1 {
+    background: radial-gradient(circle, #762043, #190710 75%);
+    z-index: 2;
+    overflow: hidden;
+}
+
+.contenido {
+    width: 100%;
+    max-width: 440px;
+    position: relative;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.corazon-grande {
+    font-size: clamp(60px, 16vw, 90px);
+    animation: latido 1.2s infinite;
+    filter: drop-shadow(0 0 20px #ff477e);
+}
+
+h1 {
+    font-size: clamp(25px, 6vw, 34px);
+    line-height: 1.2;
+}
+
+p {
+    line-height: 1.6;
+    color: #ffd4e2;
+}
+
+#mensaje {
+    min-height: 25px;
+    margin-top: 24px;
+}
+
+/* BOTÓN SÍ */
+
+#si {
+    position: fixed;
+    left: 36%;
+    top: 72%;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center;
+    z-index: 6;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #ff4785, #e60050);
+    box-shadow: 0 0 22px #ff174477;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    pointer-events: auto;
+}
+
+#si:active {
+    filter: brightness(1.12);
+}
+
+/* BOTÓN NO */
+
+#no {
+    position: fixed;
+    left: 63%;
+    top: 72%;
+    z-index: 8;
+    white-space: nowrap;
+    background: #71304b;
+    transition: left 0.12s ease, top 0.12s ease;
+    pointer-events: auto;
+}
+
+/* SÍ OCUPA TODA LA PANTALLA */
+
+#si.gigante {
+    left: 0 !important;
+    top: 0 !important;
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    padding: 0;
+    border-radius: 0;
+    transform: none !important;
+    font-size: clamp(36px, 8vw, 70px);
+    white-space: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ed2164;
+    z-index: 20;
+    box-shadow: none;
+}
+
+/* SEGUNDA PANTALLA */
+
+#pantalla2 {
+    display: none;
+    z-index: 10;
+    overflow: hidden;
+    background: radial-gradient(ellipse at center, #39000f, #100006 85%);
+}
+
+/* CARTA FIJA: SIN DESPLAZAMIENTO */
+
+.carta {
+    width: 100%;
+    max-width: 440px;
+    max-height: calc(100dvh - 32px);
+    padding: clamp(16px, 4vh, 28px) clamp(16px, 5vw, 24px);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(145deg, #fff5f8, #ffdce8);
+    color: #80153b;
+    border: 2px solid #ff91b8;
+    border-radius: 24px;
+    box-shadow: 0 0 40px #ff174455;
+    animation: aparecer 0.8s ease;
+    position: relative;
+    z-index: 12;
+}
+
+.carta h1 {
+    color: #b10c43;
+    font-size: clamp(21px, 5.4vw, 30px);
+    line-height: 1.2;
+    margin: 12px 0;
+}
+
+.carta p {
+    color: #80153b;
+    font-size: clamp(14px, 3.8vw, 17px);
+    line-height: 1.45;
+    margin: 10px 0;
+    overflow-wrap: break-word;
+}
+
+.sobre {
+    font-size: clamp(42px, 12vw, 62px);
+    line-height: 1.1;
+    animation: latido 1.4s infinite;
+}
+
+.firma {
+    font-size: clamp(16px, 4.5vw, 20px);
+    font-weight: bold;
+    margin-top: 15px;
+    color: #b10c43;
+}
+
+/* CORAZONES FLOTANTES */
+
+.corazon-fondo {
+    position: absolute;
+    bottom: -35px;
+    pointer-events: none;
+    user-select: none;
+    z-index: 11;
+    animation: subir linear forwards;
+    text-shadow: 0 0 10px #ff174455;
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.13); }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes subir {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% { opacity: 0.9; }
+    100% {
+        transform: translateY(-120dvh) rotate(35deg);
+        opacity: 0;
+    }
+}
+
+/* CELULARES PEQUEÑOS */
+
+@media (max-width: 380px) {
+    .pantalla {
+        padding: 12px;
+    }
+
+    .carta {
+        padding: 14px 13px;
+        border-radius: 19px;
+    }
+
+    .carta h1 {
+        font-size: 21px;
+        margin: 9px 0;
+    }
+
+    .carta p {
+        font-size: 13px;
+        line-height: 1.35;
+        margin: 7px 0;
+    }
+
+    .sobre {
+        font-size: 40px;
+    }
+
+    .firma {
+        font-size: 15px;
+        margin-top: 10px;
+    }
+
+    button {
+        padding: 13px 18px;
+        font-size: 15px;
+    }
+}
+
+/* PANTALLAS BAJAS */
+
+@media (max-height: 650px) {
+    .carta {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .sobre {
+        font-size: 38px;
+    }
+
+    .carta h1 {
+        font-size: clamp(19px, 4.5vh, 25px);
+        margin: 7px 0;
+    }
+
+    .carta p {
+        font-size: 13px;
+        line-height: 1.3;
+        margin: 6px 0;
+    }
+
+    .firma {
+        font-size: 15px;
+        margin-top: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .corazon-grande,
+    .sobre {
+        animation-duration: 2.5s;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PRIMERA PANTALLA -->
+
+<section class="pantalla" id="pantalla1">
+    <div class="contenido">
+        <div class="corazon-grande">❤️</div>
+
+        <p>Tengo algo que preguntarte...</p>
+
+        <h1>¿Te gustaría salir conmigo?</h1>
+
+        <p>Hay algo que llevo un ratito queriendo preguntarte 💗</p>
+
+        <p id="mensaje">Elige con el corazón... 💌</p>
+    </div>
+
+    <button id="si" type="button" onclick="decirSi()">¡Sí! ❤️</button>
+    <button id="no" type="button">No 🙈</button>
+</section>
+
+<!-- SEGUNDA PANTALLA: CARTA -->
+
+<section class="pantalla" id="pantalla2">
+    <div class="carta">
+        <div class="sobre">💌</div>
+
+        <h1>¡Sabía que ibas a decir que sí! ❤️</h1>
+
+        <p>Ahora mismo me sacaste una sonrisa. 🥹💗</p>
+
+        <p>Y esto apenas comienza… ✨</p>
+
+        <p>Espero que podamos crear recuerdos muy bonitos juntos.</p>
+
+        <div class="firma">Con cariño, para ti. ❤️</div>
+    </div>
+</section>
+
+<script>
+let intentosNo = 0;
+let lluviaIniciada = false;
+let juegoTerminado = false;
+
+const botonSi = document.getElementById("si");
+const botonNo = document.getElementById("no");
+const mensaje = document.getElementById("mensaje");
+
+const mensajes = [
+    "¿Segura? 🥹",
+    "¡Uy, casi! 😂❤️",
+    "Ese botón no te va a salvar... 💗",
+    "¿Por qué huyes del amor? 😭",
+    "¡El Sí está creciendo! 💘",
+    "Cada vez tienes menos escapatoria... 👀",
+    "Mi esperanza sigue intacta. 💌",
+    "¡El Sí ya casi ocupa todo! 😈",
+    "¡El amor ha ganado! ❤️‍🔥"
+];
+
+function moverNo() {
+    if (juegoTerminado) return;
+
+    intentosNo++;
+
+    mensaje.textContent =
+        mensajes[Math.min(intentosNo - 1, mensajes.length - 1)];
+
+    const escala = Math.min(1 + intentosNo * 0.20, 3.2);
+
+    botonSi.style.transform =
+        `translate(-50%, -50%) scale(${escala})`;
+
+    const margen = 12;
+    const ancho = botonNo.offsetWidth;
+    const alto = botonNo.offsetHeight;
+
+    const maxX = Math.max(margen, window.innerWidth - ancho - margen);
+    const maxY = Math.max(margen, window.innerHeight - alto - margen);
+
+    const x = margen + Math.random() * (maxX - margen);
+    const y = margen + Math.random() * (maxY - margen);
+
+    botonNo.style.left = x + "px";
+    botonNo.style.top = y + "px";
+
+    if (intentosNo >= 9) {
+        juegoTerminado = true;
+        botonNo.style.display = "none";
+        botonSi.classList.add("gigante");
+        botonSi.textContent = "¡SÍ! ❤️";
+        mensaje.textContent = "";
+    }
+}
+
+/* EN COMPUTADORA: ESCAPA AL ACERCAR EL RATÓN */
+botonNo.addEventListener("pointerenter", (evento) => {
+    if (evento.pointerType === "mouse") {
+        moverNo();
+    }
+});
+
+/* EN CELULAR: ESCAPA AL TOCAR */
+botonNo.addEventListener("pointerdown", (evento) => {
+    evento.preventDefault();
+    moverNo();
+});
+
+botonNo.addEventListener("click", (evento) => {
+    evento.preventDefault();
+});
+
+/* CAMBIAR A LA CARTA */
+
+function decirSi() {
+    document.getElementById("pantalla1").style.display = "none";
+    document.getElementById("pantalla2").style.display = "flex";
+
+    if (!lluviaIniciada) {
+        lluviaIniciada = true;
+
+        for (let i = 0; i < 35; i++) {
+            setTimeout(crearCorazon, i * 65);
+        }
+
+        lluviaContinua();
+    }
+}
+
+/* CORAZONES CONTINUOS */
+
+function crearCorazon() {
+    const pantalla = document.getElementById("pantalla2");
+
+    if (pantalla.style.display === "none") return;
+
+    const corazon = document.createElement("span");
+    corazon.className = "corazon-fondo";
+    corazon.textContent = Math.random() > 0.5 ? "♥" : "❤";
+
+    corazon.style.left = Math.random() * 100 + "%";
+
+    corazon.style.fontSize =
+        (9 + Math.random() * 12) + "px";
+
+    corazon.style.color = [
+        "#ff173f",
+        "#e60036",
+        "#ff335c",
+        "#c90032"
+    ][Math.floor(Math.random() * 4)];
+
+    const duracion = 4 + Math.random() * 5;
+    corazon.style.animationDuration = duracion + "s";
+
+    pantalla.appendChild(corazon);
+
+    setTimeout(() => corazon.remove(), duracion * 1000);
+}
+
+function lluviaContinua() {
+    crearCorazon();
+    setTimeout(lluviaContinua, 220);
+}
+</script>
+
+</body>
+</html>
+```
