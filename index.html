@@ -59,12 +59,40 @@ button {
     overflow: hidden;
 }
 
+
 .contenido {
     width: 100%;
     max-width: 440px;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
     z-index: 3;
     pointer-events: none;
+    padding: 0 8px;
+}
+
+.corazon-grande {
+    font-size: clamp(55px, 16vw, 90px);
+    animation: latido 1.2s infinite;
+    filter: drop-shadow(0 0 20px #ff477e);
+}
+
+h1 {
+    font-size: clamp(23px, 6vw, 34px);
+    line-height: 1.2;
+    margin: 12px 0;
+}
+
+.contenido p {
+    line-height: 1.4;
+    color: #ffd4e2;
+    margin: 10px 0;
+}
+
+#mensaje {
+    min-height: 25px;
+    margin-top: 12px;
 }
 
 .corazon-grande {
@@ -92,8 +120,8 @@ p {
 
 #si {
     position: fixed;
-    left: 36%;
-    top: 72%;
+    left: 35%;
+    top: 82%;
     transform: translate(-50%, -50%) scale(1);
     transform-origin: center;
     z-index: 6;
@@ -112,8 +140,8 @@ p {
 
 #no {
     position: fixed;
-    left: 63%;
-    top: 72%;
+    left: 68%;
+    top: 82%;
     z-index: 8;
     white-space: nowrap;
     background: #71304b;
