@@ -59,40 +59,12 @@ button {
     overflow: hidden;
 }
 
-
 .contenido {
     width: 100%;
     max-width: 440px;
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+    position: relative;
     z-index: 3;
     pointer-events: none;
-    padding: 0 8px;
-}
-
-.corazon-grande {
-    font-size: clamp(55px, 16vw, 90px);
-    animation: latido 1.2s infinite;
-    filter: drop-shadow(0 0 20px #ff477e);
-}
-
-h1 {
-    font-size: clamp(23px, 6vw, 34px);
-    line-height: 1.2;
-    margin: 12px 0;
-}
-
-.contenido p {
-    line-height: 1.4;
-    color: #ffd4e2;
-    margin: 10px 0;
-}
-
-#mensaje {
-    min-height: 25px;
-    margin-top: 12px;
 }
 
 .corazon-grande {
@@ -120,8 +92,8 @@ p {
 
 #si {
     position: fixed;
-    left: 35%;
-    top: 82%;
+    left: 36%;
+    top: 72%;
     transform: translate(-50%, -50%) scale(1);
     transform-origin: center;
     z-index: 6;
@@ -140,8 +112,8 @@ p {
 
 #no {
     position: fixed;
-    left: 68%;
-    top: 82%;
+    left: 63%;
+    top: 72%;
     z-index: 8;
     white-space: nowrap;
     background: #71304b;
@@ -351,13 +323,13 @@ p {
     <div class="contenido">
         <div class="corazon-grande">❤️</div>
 
-        <p>Tengo algo que preguntarte...</p>
+        <p>Tengo una Propuesta para ti ...</p>
+        <p>             💗                </p>
 
-        <h1>¿Te gustaría salir conmigo?</h1>
+        <h1>¿Te gustaría acompañarme a cenar?</h1>
 
-        <p>Hay algo que llevo un ratito queriendo preguntarte 💗</p>
-
-        <p id="mensaje">Elige con el corazón... 💌</p>
+        <p id="mensaje">Elige con el corazón</p>
+        <p>                     ❤️          </p>
     </div>
 
     <button id="si" type="button" onclick="decirSi()">¡Sí! ❤️</button>
@@ -368,15 +340,16 @@ p {
 
 <section class="pantalla" id="pantalla2">
     <div class="carta">
-        <div class="sobre">💌</div>
+        <div class="sobre"></div>
 
-        <h1>¡Sabía que ibas a decir que sí! ❤️</h1>
+        <h1>¡Sabía que ibas a decir que sí!</h1>
+        <h1>                 ❤️               </h1>
 
-        <p>Ahora mismo me sacaste una sonrisa. 🥹💗</p>
+        <p>Sabía que en el fondo ibas a decir que sí 💗</p>
 
-        <p>Y esto apenas comienza… ✨</p>
 
-        <p>Espero que podamos crear recuerdos muy bonitos juntos.</p>
+        <p>Espero que la pasemos super bien.</p>
+        <p>      besito en la nalga.         </p>
 
         <div class="firma">Con cariño, para ti. ❤️</div>
     </div>
@@ -392,16 +365,37 @@ const botonNo = document.getElementById("no");
 const mensaje = document.getElementById("mensaje");
 
 const mensajes = [
-    "¿Segura? 🥹",
-    "¡Uy, casi! 😂❤️",
-    "Ese botón no te va a salvar... 💗",
-    "¿Por qué huyes del amor? 😭",
-    "¡El Sí está creciendo! 💘",
-    "Cada vez tienes menos escapatoria... 👀",
-    "Mi esperanza sigue intacta. 💌",
-    "¡El Sí ya casi ocupa todo! 😈",
-    "¡El amor ha ganado! ❤️‍🔥"
-];
+    "Te doy otra oportunidad",
+    "Vamos, inténtalo otra vez",
+    "Ese no era el botón",
+    "Mira bien antes de darle",
+    "¿Segura? Piénsalo un poquito más",
+    "Creo que te equivocaste de botón",
+    "Dale otra vez, pero elige bien",
+    "No acepto esa respuesta todavía",
+    "Vamos, tú puedes elegir el correcto",
+    "¿Leíste bien las opciones?",
+    "Ese clic fue un accidente, ¿verdad?",
+    "Te doy una última oportunidad... por ahora",
+    "Mmm, creo que ese botón está dañado",
+    "Inténtalo de nuevo, sin equivocarte esta vez",
+    "¿Y si lo piensas cinco segundos más?",
+    "No te voy a mentir, esperaba otra respuesta",
+    "Bueno, vamos a fingir que no vi eso",
+    "¿Otra vez con lo mismo?",
+    "Parece que no estás entendiendo la pregunta",
+    "Última oportunidad... ahora sí en serio",
+    "¿Necesitas que te dé una pista?",
+    "El botón correcto está al otro lado, por si acaso",
+    "A ver, respira y vuelve a intentarlo",
+    "Ese NO salió sin querer, seguro",
+    "Ya veo que te gusta hacerte la difícil",
+    "No puedes seguir haciendo eso",
+    "Te estoy dando demasiadas oportunidades, ¿eh?",
+    "Bueno, esta sí es tu última oportunidad... creo",
+    "¿Todavía no? Mira que la pregunta está fácil",
+    "JAJAJA, sabía que ibas a intentarlo otra vez"
+]
 
 function moverNo() {
     if (juegoTerminado) return;
